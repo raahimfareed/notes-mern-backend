@@ -4,9 +4,9 @@ import helmet from "helmet";
 import cors from "cors";
 import "dotenv/config"
 import "dotenv-expand/config"
-
-import authRouter from "./routes/auth.js";
-import notesRouter from "./routes/notes.js";
+//
+// import authRouter from "./routes/auth.js";
+import notesRouter from "./routes/notes";
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', authRouter);
+// app.use('/api', authRouter);
 app.use('/api/notes', notesRouter);
 
 // Connect to database

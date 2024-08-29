@@ -1,15 +1,16 @@
-import Note from "../models/Note.js";
+import { Request, Response } from "express";
+import Note from "../models/Note";
 import mongoose from "mongoose";
 
 // get all notes
-export const getNotes = async (request, response) => {
+export const getNotes = async (request: Request, response: Response) => {
   const notes = await Note.find({}).sort({ createdAt: -1 });
 
   response.status(200).json(notes)
 }
 
 // get a single note
-export const getNote = async (request, response) => {
+export const getNote = async (request: Request, response: Response) => {
   const { id } = request.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return response.status(404).json({
@@ -29,7 +30,7 @@ export const getNote = async (request, response) => {
 }
 
 // create a new note
-export const createNote = async (request, response) => {
+export const createNote = async (request: Request, response: Response) => {
   const { title, body } = request.body;
 
   // Add document to database
@@ -46,12 +47,13 @@ export const createNote = async (request, response) => {
     console.error(error);
     response
       .status(400)
+      //@ts-ignore
       .json({ message: error.message })
   }
 }
 
 // delete a note
-export const deleteNote = async (request, response) => {
+export const deleteNote = async (request: Request, response: Response) => {
   const { id } = request.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return response.status(404).json({
@@ -71,7 +73,7 @@ export const deleteNote = async (request, response) => {
 }
 
 // update a note
-export const updateNote = async (request, response) => {
+export const updateNote = async (request: Request, response: Response) => {
   const { id } = request.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return response.status(404).json({
